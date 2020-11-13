@@ -29,7 +29,11 @@ const initialData = {
   }
 }
 
-const Container = styled.div``
+const Container = styled.div`
+  display: flex;
+  max-width: 100%;
+  box-sizing: border-box;
+`
 
 /**
  * Render the
