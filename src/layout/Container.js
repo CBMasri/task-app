@@ -1,9 +1,11 @@
+import Tasks from 'views/Tasks.js'
+
 import 'assets/styles/Container.css';
 
 function Container() {
   return (
     <main className="app-container">
-      This is the main content, wooo!
+      <Tasks />
     </main>
   );
 }
