@@ -3,32 +3,9 @@ import { useState, useEffect } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 import Lane from 'components/Lane.js'
+import initialData from 'data/defaults'
+import { uuid } from 'utils'
 
-
-const initialData = {
-  tasks: {
-    'task-1': { id: 'task-1', content: 'Drink coffee' },
-    'task-2': { id: 'task-2', content: 'Get a new job' },
-    'task-3': { id: 'task-3', content: 'Buy a house' }
-  },
-  lanes: {
-    'lane-1': {
-      id: 'lane-1',
-      title: 'To Do',
-      taskIds: [ 'task-3' ]
-    },
-    'lane-2': {
-      id: 'lane-2',
-      title: 'In Progress',
-      taskIds: [ 'task-2' ]
-    },
-    'lane-3': {
-      id: 'lane-3',
-      title: 'Done',
-      taskIds: [ 'task-1' ]
-    },
-  }
-}
 
 const Container = styled.div`
   display: flex;
@@ -55,6 +32,25 @@ function Tasks() {
       'lanes': lanes
     }))
   })
+
+  /**
+   * Add a new task to the list of tasks
+   * under the selected lane.
+   *
+   * @param {String} laneId
+   * @param {String} newTask
+   */
+  function addTask(laneId, newTask) {
+    const id = uuid()
+    const updatedTasks = JSON.parse(JSON.stringify(tasks))
+    updatedTasks[id] = { id, content: newTask }
+    setTasks(updatedTasks)
+
+    const updatedLanes = { ...lanes }
+    const lane = updatedLanes[laneId]
+    lane.taskIds.push(id)
+    setLanes(updatedLanes)
+  }
 
   /**
    * Remove a task from the list of tasks,
@@ -117,6 +113,7 @@ function Tasks() {
               key={lane.id}
               lane={lane}
               tasks={tasksInLane}
+              addTask={addTask}
               removeTask={removeTask}
             />
           )
