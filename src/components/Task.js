@@ -63,7 +63,7 @@ function Task(props) {
           <RemoveButton
             type="image"
             src={close}
-            onClick={() => removeTask(task.id)}
+            onClick={() => removeTask()}
           />
         </DraggableContainer>
       )}

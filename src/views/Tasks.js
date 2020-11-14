@@ -42,7 +42,7 @@ function Tasks() {
    */
   function addTask(laneId, newTask) {
     const id = uuid()
-    const updatedTasks = JSON.parse(JSON.stringify(tasks))
+    const updatedTasks = { ...tasks }
     updatedTasks[id] = { id, content: newTask }
     setTasks(updatedTasks)
 
@@ -56,21 +56,16 @@ function Tasks() {
    * Remove a task from the list of tasks,
    * and update the lanes.
    *
+   * @param {String} laneId
    * @param {String} taskId
    */
-  function removeTask(taskId) {
-    // First, find and remove the taskId from its lane
+  function removeTask(laneId, taskId) {
     const updatedLanes = { ...lanes }
-    for (const laneId of Object.keys(updatedLanes)) {
-      const tasksInLane = updatedLanes[laneId].taskIds
-      const target = tasksInLane.indexOf(taskId)
-      if (target > -1) {
-        tasksInLane.splice(target, 1)
-        setLanes(updatedLanes)
-        break
-      }
-    }
-    // Next, delete the task itself
+    const lane = updatedLanes[laneId]
+    const index = lane.taskIds.indexOf(taskId)
+    lane.taskIds.splice(index, 1)
+    setLanes(updatedLanes)
+
     const updatedTasks = { ...tasks }
     delete updatedTasks[taskId]
     setTasks(updatedTasks)

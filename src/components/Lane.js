@@ -96,8 +96,7 @@ function Lane(props) {
                     key={task.id}
                     task={task}
                     index={index}
-                    addTask={addTask}
-                    removeTask={removeTask}
+                    removeTask={() => removeTask(lane.id, task.id)}
                   />
                 )
               })}
