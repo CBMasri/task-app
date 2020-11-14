@@ -37,7 +37,7 @@ const Container = styled.div`
 `
 
 /**
- * Render the task view
+ * Render the task view.
  *
  * This view is composed of multiple "lanes"
  * into which tasks can be organized.
@@ -45,7 +45,7 @@ const Container = styled.div`
 function Tasks() {
   const cachedData = localStorage.getItem('data')
   const data = cachedData ? JSON.parse(cachedData) : initialData
-  const [ tasks ] = useState(data.tasks)
+  const [ tasks, setTasks ] = useState(data.tasks)
   const [ lanes, setLanes ] = useState(data.lanes)
   const laneOrder = Object.keys(lanes)
 
@@ -55,6 +55,30 @@ function Tasks() {
       'lanes': lanes
     }))
   })
+
+  /**
+   * Remove a task from the list of tasks,
+   * and update the lanes.
+   *
+   * @param {String} taskId
+   */
+  function removeTask(taskId) {
+    // First, find and remove the taskId from its lane
+    const updatedLanes = { ...lanes }
+    for (const laneId of Object.keys(updatedLanes)) {
+      const tasksInLane = updatedLanes[laneId].taskIds
+      const target = tasksInLane.indexOf(taskId)
+      if (target > -1) {
+        tasksInLane.splice(target, 1)
+        setLanes(updatedLanes)
+        break
+      }
+    }
+    // Next, delete the task itself
+    const updatedTasks = { ...tasks }
+    delete updatedTasks[taskId]
+    setTasks(updatedTasks)
+  }
 
   function onDragEnd(result) {
     const { destination, source, draggableId } = result
@@ -93,6 +117,7 @@ function Tasks() {
               key={lane.id}
               lane={lane}
               tasks={tasksInLane}
+              removeTask={removeTask}
             />
           )
         })}

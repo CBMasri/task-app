@@ -1,8 +1,19 @@
 import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
 
+import close from 'assets/icons/close.svg'
+
+const RemoveButton = styled.input`
+  opacity: 0.2;
+  height: 15px;
+`
 const Container = styled.div`
+  &:hover ${RemoveButton} {
+    opacity: 0.8;
+  }
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #e9e9e9;
@@ -42,13 +53,18 @@ function DraggableContainer(props) {
  * @param {Object} props.task
  */
 function Task(props) {
-  const { task, index } = props
+  const { task, index, removeTask } = props
 
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <DraggableContainer provided={provided} snapshot={snapshot}>
           {task.content}
+          <RemoveButton
+            type="image"
+            src={close}
+            onClick={() => removeTask(task.id)}
+          />
         </DraggableContainer>
       )}
     </Draggable>

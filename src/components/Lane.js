@@ -44,7 +44,6 @@ function DroppableContainer(props) {
   )
 }
 
-
 /**
  * Render the task "lane", or categorized column
  * of tasks.
@@ -54,7 +53,7 @@ function DroppableContainer(props) {
  * @param {Object[]} props.tasks
  */
 function Lane(props) {
-  const { lane, tasks } = props
+  const { lane, tasks, removeTask } = props
 
   return (
     <Container>
@@ -66,7 +65,12 @@ function Lane(props) {
           <DroppableContainer provided={provided}>
             {tasks.map((task, index) => {
                return (
-                 <Task key={task.id} task={task} index={index} />
+                 <Task
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  removeTask={removeTask}
+                />
                )
              })}
             {provided.placeholder}
