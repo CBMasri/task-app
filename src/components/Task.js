@@ -1,13 +1,39 @@
 import styled from 'styled-components'
+import { Draggable } from 'react-beautiful-dnd'
 
 const Container = styled.div`
   display: flex;
-  background-color: #272b31;
-  color: #e9e9e9;
   padding: 8px;
+  margin-bottom: 10px;
   border: 1px solid #e9e9e9;
   border-radius: 2px;
+  color: '#e9e9e9';
+  border-color: '#e9e9e9';
+  background-color: ${props => (props.isDragging ? '#1d2025' : '272b31')};
 `
+
+/**
+ * Wrapper component to inject required props for
+ * react-beautiful-dnd to enable drag-n-drop
+ * functionality.
+ *
+ * https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/draggable.md
+ *
+ * @param {Object} props
+ */
+function DraggableContainer(props) {
+  const { provided, snapshot, children } = props
+  return (
+    <Container
+      ref={provided.innerRef}
+      isDragging={snapshot.isDragging}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+    >
+      {children}
+    </Container>
+  )
+}
 
 /**
  * Render a single task.
@@ -16,12 +42,16 @@ const Container = styled.div`
  * @param {Object} props.task
  */
 function Task(props) {
-  const { task } = props
+  const { task, index } = props
 
   return (
-    <Container>
-      {task.content}
-    </Container>
+    <Draggable draggableId={task.id} index={index}>
+      {(provided, snapshot) => (
+        <DraggableContainer provided={provided} snapshot={snapshot}>
+          {task.content}
+        </DraggableContainer>
+      )}
+    </Draggable>
   )
 }
 

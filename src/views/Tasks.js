@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import styled from 'styled-components'
+import { useState } from 'react'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 import Lane from 'components/Lane.js'
 
@@ -36,28 +37,36 @@ const Container = styled.div`
 `
 
 /**
- * Render the
+ * Render the task view, which is composed of
+ * multiple "lanes" which tasks can be organized
+ * into.
  */
 function Tasks() {
   const [ tasks, setTasks ] = useState(initialData.tasks)
   const [ lanes, setLanes ] = useState(initialData.lanes)
   const laneOrder = Object.keys(lanes)
 
-  return (
-    <Container>
-      {laneOrder.map(laneId => {
-        const lane = lanes[laneId]
-        const tasksInLane = lane.taskIds.map(id => tasks[id])
+  const onDragEnd = () => {
+    // TODO
+  }
 
-        return (
-          <Lane
-            key={ lane.id }
-            lane={ lane }
-            tasks={ tasksInLane }
-          />
-        );
-      })}
-    </Container>
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Container>
+        {laneOrder.map(laneId => {
+          const lane = lanes[laneId]
+          const tasksInLane = lane.taskIds.map(id => tasks[id])
+
+          return (
+            <Lane
+              key={lane.id}
+              lane={lane}
+              tasks={tasksInLane}
+            />
+          )
+        })}
+      </Container>
+    </DragDropContext>
   );
 }
 

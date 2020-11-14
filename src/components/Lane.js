@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Droppable } from 'react-beautiful-dnd'
 
 import Task from './Task.js'
 
@@ -23,6 +24,28 @@ const TaskList = styled.div`
 `
 
 /**
+ * Wrapper component to inject required props for
+ * react-beautiful-dnd to enable drag-n-drop
+ * functionality.
+ *
+ * https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/droppable.md
+ *
+ * @param {Object} props
+ */
+function DroppableContainer(props) {
+  const { provided, children } = props
+  return (
+    <TaskList
+      ref={provided.innerRef}
+      {...provided.droppableProps}
+    >
+      {children}
+    </TaskList>
+  )
+}
+
+
+/**
  * Render the task "lane", or categorized column
  * of tasks.
  *
@@ -38,13 +61,18 @@ function Lane(props) {
       <Heading>
         { lane.title }
       </Heading>
-      <TaskList>
-        {tasks.map(task => {
-           return (
-             <Task key={task.id} task={task} />
-           )
-         })}
-      </TaskList>
+      <Droppable droppableId={lane.id}>
+        {provided => (
+          <DroppableContainer provided={provided}>
+            {tasks.map((task, index) => {
+               return (
+                 <Task key={task.id} task={task} index={index} />
+               )
+             })}
+            {provided.placeholder}
+          </DroppableContainer>
+        )}
+      </Droppable>
     </Container>
   );
 }
