@@ -37,17 +37,40 @@ const Container = styled.div`
 `
 
 /**
- * Render the task view, which is composed of
- * multiple "lanes" which tasks can be organized
- * into.
+ * Render the task view
+ *
+ * This view is composed of multiple "lanes"
+ * into which tasks can be organized.
  */
 function Tasks() {
-  const [ tasks, setTasks ] = useState(initialData.tasks)
+  const [ tasks ] = useState(initialData.tasks)
   const [ lanes, setLanes ] = useState(initialData.lanes)
   const laneOrder = Object.keys(lanes)
 
-  const onDragEnd = () => {
-    // TODO
+  function onDragEnd(result) {
+    const { destination, source, draggableId } = result
+
+    if (!destination) {
+      return // user dropped item outside droppable zone
+    }
+    if (
+      result.destination.index.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return // item was dropped in original location
+    }
+    // We need to create a new reference to `lanes` that will be passed into
+    // setLanes because React hooks use Object.is() to determine if the old/new
+    // state values are the same and aborts if they are.
+    // https://reactjs.org/docs/hooks-reference.html#bailing-out-of-a-state-update
+    const updatedLanes = { ...lanes }
+
+    // Update the tasks in the affected lane(s), represented by their task ids
+    const startLane = updatedLanes[source.droppableId]
+    const endLane = updatedLanes[destination.droppableId]
+    startLane.taskIds.splice(source.index, 1)
+    endLane.taskIds.splice(destination.index, 0, draggableId)
+    setLanes(updatedLanes)
   }
 
   return (
@@ -56,7 +79,6 @@ function Tasks() {
         {laneOrder.map(laneId => {
           const lane = lanes[laneId]
           const tasksInLane = lane.taskIds.map(id => tasks[id])
-
           return (
             <Lane
               key={lane.id}
