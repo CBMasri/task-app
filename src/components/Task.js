@@ -4,12 +4,12 @@ import { Draggable } from 'react-beautiful-dnd'
 import close from 'assets/icons/close.svg'
 
 const RemoveButton = styled.input`
-  opacity: 0.2;
-  height: 15px;
+  visibility: hidden;
+  height: 12px;
 `
 const Container = styled.div`
   &:hover ${RemoveButton} {
-    opacity: 0.8;
+    visibility: visible;
   }
   display: flex;
   align-items: center;

@@ -23,11 +23,15 @@ const Heading = styled.div`
   color: white;
   background-color: #1d2025;
 `
-const Scrollable = styled.div`
-  overflow-y: auto;
-`
 const AddButton = styled.input`
   height: 22px;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+`
+const Scrollable = styled.div`
+  overflow-y: auto;
 `
 const TaskList = styled.div`
   padding: 16px;
@@ -86,10 +90,7 @@ function Lane(props) {
       <Scrollable>
         <Droppable droppableId={lane.id}>
           {(provided, snapshot) => (
-            <DroppableContainer
-              provided={provided}
-              snapshot={snapshot}
-            >
+            <DroppableContainer provided={provided} snapshot={snapshot}>
               {tasks.map((task, index) => {
                 return (
                   <Task
