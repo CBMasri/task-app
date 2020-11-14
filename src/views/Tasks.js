@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 import Lane from 'components/Lane.js'
@@ -43,9 +43,18 @@ const Container = styled.div`
  * into which tasks can be organized.
  */
 function Tasks() {
-  const [ tasks ] = useState(initialData.tasks)
-  const [ lanes, setLanes ] = useState(initialData.lanes)
+  const cachedData = localStorage.getItem('data')
+  const data = cachedData ? JSON.parse(cachedData) : initialData
+  const [ tasks ] = useState(data.tasks)
+  const [ lanes, setLanes ] = useState(data.lanes)
   const laneOrder = Object.keys(lanes)
+
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify({
+      'tasks': tasks,
+      'lanes': lanes
+    }))
+  })
 
   function onDragEnd(result) {
     const { destination, source, draggableId } = result
