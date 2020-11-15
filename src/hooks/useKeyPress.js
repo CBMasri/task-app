@@ -29,6 +29,7 @@ function useKeyPress(targetKey) {
   };
 
   // Add event listeners
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     window.addEventListener('keydown', downHandler)
     window.addEventListener('keyup', upHandler)

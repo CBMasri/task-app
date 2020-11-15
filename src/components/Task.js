@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
 
 import InlineEdit from 'components/InlineEdit.js'
-import close from 'assets/icons/close.svg'
+import closeIcon from 'assets/icons/close.svg'
 
 const RemoveButton = styled.input`
   visibility: hidden;
@@ -20,8 +20,8 @@ const Container = styled.div`
   margin-bottom: 10px;
   border: 1px solid #e9e9e9;
   border-radius: 2px;
-  color: '#e9e9e9';
-  border-color: '#e9e9e9';
+  color: #e9e9e9;
+  border-color: #e9e9e9;
   background-color: ${props => (props.isDragging ? '#1d2025' : '272b31')};
 `
 
@@ -72,7 +72,7 @@ function Task(props) {
           />
           <RemoveButton
             type="image"
-            src={close}
+            src={closeIcon}
             onClick={() => removeTask()}
           />
         </DraggableContainer>

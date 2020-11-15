@@ -38,6 +38,7 @@ function InlineEdit(props, ref) {
     }
   }, [isInputActive])
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (isInputActive) {
       // if Enter is pressed, save the text and case the editor
@@ -51,7 +52,7 @@ function InlineEdit(props, ref) {
         setIsInputActive(false)
       }
     }
-  }, [enter, esc, inputValue, isInputActive, props]) // watch the Enter and Escape key presses
+  }, [enter, esc]) // watch the Enter and Escape key presses
 
   return (
     <span className="inline-text" ref={wrapperRef}>

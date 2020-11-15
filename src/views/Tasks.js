@@ -9,6 +9,21 @@ import { uuid } from 'utils'
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const AddTask = styled.input`
+  width: 300px;
+  padding: 8px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 2px solid #aaaaaa;
+  background-color: #282c34;
+  color: #e9e9e9;
+  font-size: 16px;
+`
+const Lanes = styled.div`
+  display: flex;
   max-width: 100%;
   box-sizing: border-box;
 `
@@ -22,10 +37,14 @@ const Container = styled.div`
 function Tasks() {
   const cachedData = localStorage.getItem('data')
   const data = cachedData ? JSON.parse(cachedData) : initialData
+
   const [ tasks, setTasks ] = useState(data.tasks)
   const [ lanes, setLanes ] = useState(data.lanes)
+  const [ inputValue, setInputValue ] = useState('')
+
   const laneOrder = Object.keys(lanes)
 
+  // Cache state in localStorage
   useEffect(() => {
     localStorage.setItem('data', JSON.stringify({
       'tasks': tasks,
@@ -34,19 +53,32 @@ function Tasks() {
   })
 
   /**
-   * Add a new task to the list of tasks
-   * under the selected lane.
+   * Handle the 'Enter' keypress event
+   * triggered by the AddTask input.
    *
-   * @param {String} laneId
+   * @param {Object} event
    */
-  function addTask(laneId) {
+  function handleKeyPress(event) {
+    if (event.key === 'Enter' && inputValue.length > 0) {
+      addTask(inputValue)
+      setInputValue('')
+    }
+  }
+
+  /**
+   * Add a new task to the list of tasks
+   * under the 'To Do' lane.
+   *
+   * @param {String} text
+   */
+  function addTask(text) {
     const id = uuid()
     const updatedTasks = { ...tasks }
-    updatedTasks[id] = { id, content: '' }
+    updatedTasks[id] = { id, content: text }
     setTasks(updatedTasks)
 
     const updatedLanes = { ...lanes }
-    const lane = updatedLanes[laneId]
+    const lane = updatedLanes['lane-1'] // 'To Do'
     lane.taskIds.push(id)
     setLanes(updatedLanes)
   }
@@ -114,24 +146,32 @@ function Tasks() {
   }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Container>
-        {laneOrder.map(laneId => {
-          const lane = lanes[laneId]
-          const tasksInLane = lane.taskIds.map(id => tasks[id])
-          return (
-            <Lane
-              key={lane.id}
-              lane={lane}
-              tasks={tasksInLane}
-              addTask={addTask}
-              editTask={editTask}
-              removeTask={removeTask}
-            />
-          )
-        })}
-      </Container>
-    </DragDropContext>
+    <Container>
+      <AddTask
+        placeholder="What needs to be done?"
+        value={inputValue}
+        onKeyPress={handleKeyPress}
+        onChange={event => setInputValue(event.target.value)}
+      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Lanes>
+          {laneOrder.map(laneId => {
+            const lane = lanes[laneId]
+            const tasksInLane = lane.taskIds.map(id => tasks[id])
+            return (
+              <Lane
+                key={lane.id}
+                lane={lane}
+                tasks={tasksInLane}
+                addTask={addTask}
+                editTask={editTask}
+                removeTask={removeTask}
+              />
+            )
+          })}
+        </Lanes>
+      </DragDropContext>
+    </Container>
   );
 }
 

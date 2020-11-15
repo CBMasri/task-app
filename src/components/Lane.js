@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { Droppable } from 'react-beautiful-dnd'
 
 import Task from './Task.js'
-import add from 'assets/icons/add.svg'
 
 
 const Container = styled.div`
@@ -22,13 +21,6 @@ const Heading = styled.div`
   font-size: 18px;
   color: white;
   background-color: #1d2025;
-`
-const AddButton = styled.input`
-  height: 22px;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
-  }
 `
 const Scrollable = styled.div`
   overflow-y: auto;
@@ -73,7 +65,6 @@ function Lane(props) {
   const {
     lane,
     tasks,
-    addTask,
     editTask,
     removeTask
   } = props
@@ -82,11 +73,6 @@ function Lane(props) {
     <Container>
       <Heading>
         { lane.title }
-        <AddButton
-          type="image"
-          src={add}
-          onClick={() => addTask(lane.id)}
-        />
       </Heading>
       <Scrollable>
         <Droppable droppableId={lane.id}>
