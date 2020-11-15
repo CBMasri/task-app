@@ -85,6 +85,7 @@ function Lane(props) {
                     key={task.id}
                     task={task}
                     index={index}
+                    completed={lane.id === 'lane-3'}
                     editTask={text => editTask(lane.id, task.id, text)}
                     removeTask={() => removeTask(lane.id, task.id)}
                   />

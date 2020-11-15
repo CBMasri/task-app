@@ -27,6 +27,7 @@ const Container = styled.div`
   color: #e9e9e9;
   border-color: #e9e9e9;
   background-color: ${props => (props.isDragging ? '#1d2025' : '272b31')};
+  text-decoration: ${props => (props.completed ? 'line-through' : 'none')};
 `
 
 /**
@@ -39,11 +40,12 @@ const Container = styled.div`
  * @param {Object} props
  */
 function DraggableContainer(props) {
-  const { provided, snapshot, children } = props
+  const { provided, snapshot, completed, children } = props
   return (
     <Container
       ref={provided.innerRef}
       isDragging={snapshot.isDragging}
+      completed={completed}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
@@ -61,6 +63,7 @@ function Task(props) {
   const {
     task,
     index,
+    completed,
     editTask,
     removeTask
   } = props
@@ -68,7 +71,11 @@ function Task(props) {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
-        <DraggableContainer provided={provided} snapshot={snapshot}>
+        <DraggableContainer
+          provided={provided}
+          snapshot={snapshot}
+          completed={completed}
+        >
           <InlineEdit
             text={task.content}
             onSetText={text => editTask(text)}
