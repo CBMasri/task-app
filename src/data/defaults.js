@@ -1,4 +1,5 @@
 // Task lanes will be pre-populated with this data
+// when the app initially loads
 const initialData = {
   tasks: {
     'task-1': { id: 'task-1', content: 'Drink coffee' },

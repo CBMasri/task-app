@@ -27,17 +27,20 @@ const AddTask = styled.input`
   border: 2px solid #aaaaaa;
   background-color: inherit;
 `
-  const ClearTasks = styled.button`
-  padding: 8px;
-  border: 2px dashed #757575;
-  background-color: inherit;
-  color: #757575;
-  margin-left: 20px;
+const ClearTasks = styled.button`
   &:hover {
     background-color: #b92424;
     cursor: pointer;
     color: #e9e9e9;
   }
+  &:focus {
+    box-shadow: 0 0 2px 2px #61dbfb;
+  }
+  padding: 8px;
+  border: 2px dashed #757575;
+  background-color: inherit;
+  color: #757575;
+  margin-left: 20px;
 `
 const Lanes = styled.div`
   display: flex;
@@ -167,14 +170,16 @@ function Tasks() {
   function onDragEnd(result) {
     const { destination, source, draggableId } = result
 
+    // User dropped item outside droppable zone
     if (!destination) {
-      return // user dropped item outside droppable zone
+      return
     }
+    // Item was dropped in original location
     if (
       result.destination.index.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
-      return // item was dropped in original location
+      return
     }
     // We need to create a new reference to `lanes` that will be passed into
     // setLanes to make sure react renders the new state.
@@ -222,7 +227,7 @@ function Tasks() {
         </Lanes>
       </DragDropContext>
     </Container>
-  );
+  )
 }
 
 export default Tasks

@@ -3,6 +3,7 @@ import { useKeyPress, useOnClickOutside } from 'hooks'
 
 import 'assets/styles/InlineEdit.css'
 
+
 /**
  * Inline edit component.
  *
@@ -75,4 +76,5 @@ function InlineEdit(props, ref) {
     </span>
   )
 }
+
 export default InlineEdit

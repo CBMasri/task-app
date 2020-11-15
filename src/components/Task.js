@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import InlineEdit from 'components/InlineEdit.js'
 import closeIcon from 'assets/icons/close.svg'
 
+
 const RemoveButton = styled.input`
   visibility: hidden;
   height: 12px;
@@ -12,6 +13,9 @@ const RemoveButton = styled.input`
 const Container = styled.div`
   &:hover ${RemoveButton} {
     visibility: visible;
+  }
+  &:focus {
+    box-shadow: 0 0 2px 2px #61dbfb;
   }
   display: flex;
   align-items: center;
@@ -52,7 +56,6 @@ function DraggableContainer(props) {
  * Render a single task.
  *
  * @param {Object} props
- * @param {Object} props.task
  */
 function Task(props) {
   const {

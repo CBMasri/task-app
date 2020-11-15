@@ -42,6 +42,7 @@ const TaskList = styled.div`
  */
 function DroppableContainer(props) {
   const { provided, snapshot, children } = props
+
   return (
     <TaskList
       isDraggingOver={snapshot.isDraggingOver}
@@ -95,7 +96,7 @@ function Lane(props) {
         </Droppable>
       </Scrollable>
     </Container>
-  );
+  )
 }
 
 export default Lane
