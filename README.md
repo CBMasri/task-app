@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# task-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple react application that renders a list of tasks categorized
+into three lanes: `To Do`, `In Progress`, and `Done`.
 
-## Available Scripts
+Built using [react hooks](https://reactjs.org/docs/hooks-intro.html),
+[styled-components](https://styled-components.com/),
+and the [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) library.
 
-In the project directory, you can run:
+## Installation
 
-### `yarn start`
+You will need [node](https://nodejs.org/en/download/) and
+[yarn](https://classic.yarnpkg.com/en/docs/install/) installed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Clone repo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+# clone the repo
+git clone https://github.com/CBMasri/task-app.git
 
-### `yarn test`
+# go into app's directory
+cd task-app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# install dependencies
+yarn install
+```
 
-### `yarn build`
+### Scripts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+# serve with hot reload at localhost:3000
+yarn start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# build for production with minification
+yarn build
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# launch the test runner
+yarn test
+```
 
-### `yarn eject`
+## Application Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Each lane represents a task state. When a task is first created, it will appear
+under the `To Do` lane. Tasks can be moved between lanes using the mouse or via
+[keyboard commands](#accessibility). Task data will be saved in your local browser
+storage.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Action           |                                                                                  |
+|------------------|----------------------------------------------------------------------------------|
+| Create a task    | Enter the task in the input box (`Enter` to confirm)                             |
+| Edit a task      | Click the text of the task you wish to edit (`Enter` to confirm, `Esc` to abort) |
+| Remove a task    | Click the red `X` which appears when you hover over a task                       |
+| Remove all tasks | Click the `Clear Tasks` button in the top right                                  |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Accessibility
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`react-beautiful-dnd` comes with built-in [accessibility](https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/about/accessibility.md) controls.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Action            | Keyboard Command |
+|-------------------|------------------|
+| Move to next item | `Tab`            |
+| Select a task     | `Space`          |
+| Move the task     | `Arrow` keys     |
+| Complete the move | `Space`          |
+| Abort the move    | `Esc`            |
