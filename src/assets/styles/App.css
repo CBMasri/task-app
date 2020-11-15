@@ -16,6 +16,6 @@ a:hover {
   color: #eeeeee;
   text-decoration: underline;
 }
-input:focus {
+input:focus, button:focus {
   outline: none;
 }

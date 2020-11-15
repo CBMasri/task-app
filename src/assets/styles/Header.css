@@ -6,7 +6,7 @@
   background-color: #1d2025;
 }
 .app-logo {
-  height: 50px;
+  height: 40px;
   pointer-events: none;
 }
 @media (prefers-reduced-motion: no-preference) {
