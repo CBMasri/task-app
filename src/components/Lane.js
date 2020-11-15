@@ -8,8 +8,8 @@ import add from 'assets/icons/add.svg'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 225px;
-  width: 225px;
+  min-height: 275px;
+  width: 250px;
   margin: 0 8px;
   border-radius: 5px;
   background-color: #323746;
@@ -74,6 +74,7 @@ function Lane(props) {
     lane,
     tasks,
     addTask,
+    editTask,
     removeTask
   } = props
 
@@ -84,7 +85,7 @@ function Lane(props) {
         <AddButton
           type="image"
           src={add}
-          onClick={() => addTask(lane.id, 'New task')}
+          onClick={() => addTask(lane.id)}
         />
       </Heading>
       <Scrollable>
@@ -97,6 +98,7 @@ function Lane(props) {
                     key={task.id}
                     task={task}
                     index={index}
+                    editTask={text => editTask(lane.id, task.id, text)}
                     removeTask={() => removeTask(lane.id, task.id)}
                   />
                 )

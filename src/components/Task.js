@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
 
+import InlineEdit from 'components/InlineEdit.js'
 import close from 'assets/icons/close.svg'
 
 const RemoveButton = styled.input`
   visibility: hidden;
   height: 12px;
+  padding: 4px;
 `
 const Container = styled.div`
   &:hover ${RemoveButton} {
@@ -53,13 +55,21 @@ function DraggableContainer(props) {
  * @param {Object} props.task
  */
 function Task(props) {
-  const { task, index, removeTask } = props
+  const {
+    task,
+    index,
+    editTask,
+    removeTask
+  } = props
 
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <DraggableContainer provided={provided} snapshot={snapshot}>
-          {task.content}
+          <InlineEdit
+            text={task.content}
+            onSetText={text => editTask(text)}
+          />
           <RemoveButton
             type="image"
             src={close}

@@ -38,18 +38,35 @@ function Tasks() {
    * under the selected lane.
    *
    * @param {String} laneId
-   * @param {String} newTask
    */
-  function addTask(laneId, newTask) {
+  function addTask(laneId) {
     const id = uuid()
     const updatedTasks = { ...tasks }
-    updatedTasks[id] = { id, content: newTask }
+    updatedTasks[id] = { id, content: '' }
     setTasks(updatedTasks)
 
     const updatedLanes = { ...lanes }
     const lane = updatedLanes[laneId]
     lane.taskIds.push(id)
     setLanes(updatedLanes)
+  }
+
+  /**
+   * Edit an existing task, or remove it
+   * if the user has deleted all the text.
+   *
+   * @param {String} laneId
+   * @param {String} taskId
+   * @param {String} text
+   */
+  function editTask(laneId, taskId, text) {
+    if (text === '') {
+      removeTask(laneId, taskId)
+    } else {
+      const updatedTasks = { ...tasks }
+      updatedTasks[taskId].content = text
+      setTasks(updatedTasks)
+    }
   }
 
   /**
@@ -84,8 +101,7 @@ function Tasks() {
       return // item was dropped in original location
     }
     // We need to create a new reference to `lanes` that will be passed into
-    // setLanes because React hooks use Object.is() to determine if the old/new
-    // state values are the same and aborts if they are.
+    // setLanes to make sure react renders the new state.
     // https://reactjs.org/docs/hooks-reference.html#bailing-out-of-a-state-update
     const updatedLanes = { ...lanes }
 
@@ -109,6 +125,7 @@ function Tasks() {
               lane={lane}
               tasks={tasksInLane}
               addTask={addTask}
+              editTask={editTask}
               removeTask={removeTask}
             />
           )

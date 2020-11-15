@@ -16,3 +16,6 @@ a:hover {
   color: #eeeeee;
   text-decoration: underline;
 }
+input:focus {
+  outline: none;
+}
