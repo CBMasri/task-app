@@ -1,4 +1,4 @@
-import Tasks from 'views/Tasks.js'
+import { Tasks } from 'components/Tasks'
 import 'assets/styles/Container.css'
 
 function Container() {
