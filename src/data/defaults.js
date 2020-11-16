@@ -19,7 +19,7 @@ const initialData = {
     },
     'lane-3': {
       id: 'lane-3',
-      title: 'Done',
+      title: 'Completed',
       taskIds: [ 'task-1' ]
     }
   }

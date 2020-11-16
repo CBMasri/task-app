@@ -7,6 +7,6 @@ describe('<Lane />', () => {
     const { getByText } = render(<Lane />)
     expect(getByText(/To Do/i)).toBeInTheDocument()
     expect(getByText(/In Progress/i)).toBeInTheDocument()
-    expect(getByText(/Done/i)).toBeInTheDocument()
+    expect(getByText(/Completed/i)).toBeInTheDocument()
   })
 })

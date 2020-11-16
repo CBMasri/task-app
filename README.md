@@ -1,7 +1,7 @@
 # task-app
 
 A simple react application that renders a list of tasks categorized
-into three lanes: `To Do`, `In Progress`, and `Done`.
+into three lanes: `To Do`, `In Progress`, and `Completed`.
 
 Built using [react hooks](https://reactjs.org/docs/hooks-intro.html),
 [styled-components](https://styled-components.com/),
