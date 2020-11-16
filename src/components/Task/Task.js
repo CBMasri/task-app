@@ -12,10 +12,12 @@ import { Container, RemoveButton } from './_components.js'
  *
  * https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/draggable.md
  *
- * @param {Object} props
+ * @param {Object} provided
+ * @param {Object} snapshot
+ * @param {Boolean} completed
+ * @param {Object[]} children
  */
-function DraggableContainer(props) {
-  const { provided, snapshot, completed, children } = props
+function DraggableContainer({ provided, snapshot, completed, children }) {
   return (
     <Container
       ref={provided.innerRef}
@@ -32,17 +34,13 @@ function DraggableContainer(props) {
 /**
  * Render a single task.
  *
- * @param {Object} props
+ * @param {Object} task
+ * @param {Number} index
+ * @param {Boolean} completed
+ * @param {Function} editTask
+ * @param {Function} removeTask
  */
-function Task(props) {
-  const {
-    task,
-    index,
-    completed,
-    editTask,
-    removeTask
-  } = props
-
+function Task({ task, index, completed, editTask, removeTask }) {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (

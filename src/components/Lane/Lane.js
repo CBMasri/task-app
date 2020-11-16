@@ -10,11 +10,11 @@ import { Container, Heading, Scrollable, TaskList } from './_components.js'
  *
  * https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/droppable.md
  *
- * @param {Object} props
+ * @param {Object} provided
+ * @param {Object} snapshot
+ * @param {Object[]} children
  */
-function DroppableContainer(props) {
-  const { provided, snapshot, children } = props
-
+function DroppableContainer({ provided, snapshot, children }) {
   return (
     <TaskList
       isDraggingOver={snapshot.isDraggingOver}
@@ -30,18 +30,12 @@ function DroppableContainer(props) {
  * Render the task "lane", or categorized column
  * of tasks.
  *
- * @param {Object} props
- * @param {Object} props.lane
- * @param {Object[]} props.tasks
+ * @param {Object} lane
+ * @param {Object[]} tasks
+ * @param {Function} editTask
+ * @param {Function} removeTask
  */
-function Lane(props) {
-  const {
-    lane,
-    tasks,
-    editTask,
-    removeTask
-  } = props
-
+function Lane({ lane, tasks, editTask, removeTask }) {
   return (
     <Container>
       <Heading>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 
-import initialData from 'data/defaults'
+import initialData from './data.js'
 import { uuid } from 'utils'
 import { Lane } from 'components/Lane'
 import { Container, Controls, AddTask, ClearTasks, Lanes } from './_components.js'
@@ -124,18 +124,18 @@ function Tasks() {
    * Required by DragDropContext, this function
    * controls the state of the drag-n-drop items.
    *
-   * @param {Object} result
+   * @param {Object} destination
+   * @param {Object} source
+   * @param {Object} draggableId
    */
-  function onDragEnd(result) {
-    const { destination, source, draggableId } = result
-
+  function onDragEnd({ destination, source, draggableId }) {
     // User dropped item outside droppable zone
     if (!destination) {
       return
     }
     // Item was dropped in original location
     if (
-      result.destination.index.droppableId === source.droppableId &&
+      destination.index.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
       return
