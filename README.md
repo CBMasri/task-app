@@ -7,6 +7,8 @@ Built using [react hooks](https://reactjs.org/docs/hooks-intro.html),
 [styled-components](https://styled-components.com/),
 and the [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) library.
 
+![task-app](https://user-images.githubusercontent.com/10861443/99208463-4fe50c80-2775-11eb-8cb9-e68f8eb5a43a.gif)
+
 ## Installation
 
 You will need [node](https://nodejs.org/en/download/) and
@@ -63,3 +65,14 @@ storage.
 | Move the task     | `Arrow` keys     |
 | Complete the move | `Space`          |
 | Abort the move    | `Esc`            |
+
+## Deployment
+
+Heroku provides a [builpack](https://blog.heroku.com/deploying-react-with-zero-configuration)
+for apps bootstrapped with `create-react-app`.
+
+```
+heroku create -b https://github.com/mars/create-react-app-buildpack.git
+git push heroku master
+heroku open
+```
