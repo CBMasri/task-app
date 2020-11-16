@@ -68,6 +68,7 @@ function InlineEdit(props, ref) {
         ref={inputRef}
         value={inputValue}
         placeholder="What needs to be done?"
+        data-testid="edittask-input"
         onChange={(e) => {
           setInputValue(e.target.value)
         }}

@@ -160,6 +160,7 @@ function Tasks() {
           ref={addTaskRef}
           placeholder="What needs to be done?"
           value={inputValue}
+          aria-label="addtask-input"
           onKeyPress={handleKeyPress}
           onChange={event => setInputValue(event.target.value)}
         />

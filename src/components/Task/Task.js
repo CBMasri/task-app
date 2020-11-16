@@ -56,6 +56,7 @@ function Task({ task, index, completed, editTask, removeTask }) {
           <RemoveButton
             type="image"
             src={closeIcon}
+            data-testid="remove-btn"
             onClick={() => removeTask()}
           />
         </DraggableContainer>
