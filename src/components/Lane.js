@@ -8,10 +8,16 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 275px;
-  width: 250px;
-  margin: 0 8px;
+  width: 275px;
+  margin: 10px 8px;
   border-radius: 5px;
   background-color: #323746;
+  @media (min-width: 768px) {
+    width: 225px;
+  }
+  @media (min-width: 992px) {
+    width: 250px;
+  }
 `
 const Heading = styled.div`
   display: flex;

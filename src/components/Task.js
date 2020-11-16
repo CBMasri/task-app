@@ -6,9 +6,12 @@ import closeIcon from 'assets/icons/close.svg'
 
 
 const RemoveButton = styled.input`
-  visibility: hidden;
-  height: 12px;
+  visibility: visible;
+  height: 20px;
   padding: 4px;
+  @media (min-width: 992px) {
+    visibility: hidden;
+  }
 `
 const Container = styled.div`
   &:hover ${RemoveButton} {
